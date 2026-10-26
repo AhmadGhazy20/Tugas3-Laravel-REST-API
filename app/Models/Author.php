@@ -2,18 +2,14 @@
 
 namespace App\Models;
 
-class Author
-{
-    private array $authors = [
-        ['id' => 1, 'name' => 'Andrea Hirata'],
-        ['id' => 2, 'name' => 'Tere Liye'],
-        ['id' => 3, 'name' => 'Dee Lestari'],
-        ['id' => 4, 'name' => 'Raditya Dika'],
-        ['id' => 5, 'name' => 'Habiburrahman El Shirazy'],
-    ];
+use Illuminate\Database\Eloquent\Model;
 
-    public function getAuthors(): array
-    {
-        return $this->authors;
-    }
+class Author extends Model
+{
+    protected $fillable = [
+        'name',
+        'bio',
+        'photo',
+    ];
 }
+
