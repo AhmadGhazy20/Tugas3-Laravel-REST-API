@@ -34,4 +34,67 @@ class AuthorController extends Controller
             'data' => $author,
         ], 201);
     }
+
+    public function show(string $id)
+    {
+        $author = Author::find($id);
+
+        if (!$author) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Resource not found',
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Berhasil mengambil detail penulis',
+            'data' => $author,
+        ], 200);
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $author = Author::find($id);
+
+        if (!$author) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Resource not found',
+            ], 404);
+        }
+
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'bio' => 'sometimes|nullable|string',
+            'photo' => 'sometimes|nullable|string|max:255',
+        ]);
+
+        $author->update($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Resources updated successfully',
+            'data' => $author,
+        ], 200);
+    }
+
+    public function destroy(string $id)
+    {
+        $author = Author::find($id);
+
+        if (!$author) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Resource not found',
+            ], 404);
+        }
+
+        $author->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Delete resource successfully',
+        ], 200);
+    }
 }
