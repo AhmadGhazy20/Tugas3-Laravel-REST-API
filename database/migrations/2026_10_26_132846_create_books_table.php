@@ -1,4 +1,3 @@
-
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -19,6 +18,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->integer('stock')->default(0);
             $table->string('cover')->nullable();
+            $table->foreignId('genre_id')->nullable()->constrained('genres')->nullOnDelete();
             $table->foreignId('author_id')->nullable()->constrained('authors')->nullOnDelete();
             $table->timestamps();
         });
